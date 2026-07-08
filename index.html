@@ -246,6 +246,58 @@
     }
     .card p { margin: 0; font-size: 16px; color: #40514a; }
 
+    /* ---------- How it works (steps) ---------- */
+    .howitworks { background: #fff; }
+    .howitworks h2 {
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--green);
+      max-width: 20ch;
+    }
+    .steps {
+      margin-top: 48px;
+      max-width: 760px;
+    }
+    .step {
+      position: relative;
+      display: flex;
+      gap: 22px;
+      padding-bottom: 34px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    /* connecting line between step markers */
+    .step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 21px;
+      top: 46px;
+      bottom: -6px;
+      width: 1px;
+      background: rgba(0,66,37,0.16);
+    }
+    .step .marker {
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1px solid rgba(0,66,37,0.16);
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step .body { padding-top: 6px; }
+    .step h3 {
+      font-size: 20px;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .step p { margin: 0; font-size: 16px; color: #40514a; }
+
     /* ---------- Partner / who ---------- */
     .partner { background: var(--green); color: var(--cream); }
     .partner .wrap { max-width: 780px; }
@@ -345,6 +397,15 @@
       text-align: center;
       margin: 18px 0 0;
     }
+    .submit-error {
+      display: none;
+      text-align: center;
+      font-size: 14px;
+      color: var(--red);
+      margin: 16px 0 0;
+    }
+    .submit-error a { color: var(--red); }
+    .submit-error.visible { display: block; }
 
     /* Thank-you state */
     .thanks {
@@ -462,6 +523,58 @@
     </div>
   </section>
 
+  <!-- How it works -->
+  <section class="section howitworks">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2>A clear path, from first conversation to open doors.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="marker">01</div>
+          <div class="body">
+            <h3>Register your interest</h3>
+            <p>Share a few details using the form below and tell us a little about yourself and where in Florida you are based.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="marker">02</div>
+          <div class="body">
+            <h3>An early conversation</h3>
+            <p>We talk openly about your goals and our standards. This is an introductory discussion, with no obligation on either side.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="marker">03</div>
+          <div class="body">
+            <h3>Mutual discovery</h3>
+            <p>We take time to get to know one another properly, exploring territory, expectations and whether the fit is right for both of us.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="marker">04</div>
+          <div class="body">
+            <h3>Formal documentation</h3>
+            <p>Where and when permitted by law, you receive a Franchise Disclosure Document to review at your own pace, with time to take independent advice.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="marker">05</div>
+          <div class="body">
+            <h3>Training and onboarding</h3>
+            <p>Once we decide to proceed together, you and your team are trained in the Hamilton George Care model, its governance and its standards.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="marker">06</div>
+          <div class="body">
+            <h3>Launch and ongoing support</h3>
+            <p>We help you establish your operation and open your doors, then support you over the long term with guidance and quality oversight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Who we are looking for -->
   <section class="section partner">
     <div class="wrap">
@@ -485,11 +598,16 @@
       <p class="intro">Tell us a little about yourself. This is an early conversation, with no obligation on either side.</p>
 
       <div class="form-card" id="formCard">
-        <!-- TODO: Set the action to the real endpoint once chosen.
-             For Formspree, use https://formspree.io/f/XXXXXXXX and keep method="POST".
-             For a Google Sheet, point at the Apps Script web app URL.
-             The JS below intercepts submit and posts via fetch; update ENDPOINT there too. -->
-        <form id="interestForm" action="https://example.com/TODO-endpoint" method="POST" novalidate>
+        <!-- Submissions are delivered to fred@hamiltongeorgecare.com via Formspree.
+             TODO: Create a form at https://formspree.io, set its notification
+             recipient to fred@hamiltongeorgecare.com, then paste the form ID into
+             BOTH the action below and the FORMSPREE_FORM_ID constant in the script
+             (replace YOUR_FORM_ID). The JS intercepts submit and posts via fetch. -->
+        <form id="interestForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+
+          <!-- Formspree: sets the notification email subject. The registrant's
+               own email (the "email" field below) is used as the reply-to. -->
+          <input type="hidden" name="_subject" value="New Florida franchise interest" />
 
           <div class="field">
             <label for="fullName">Full name</label>
@@ -549,6 +667,7 @@
           </div>
 
           <button type="submit" class="btn btn-green">Register interest</button>
+          <p class="submit-error" id="submitError" role="alert">Something went wrong. Please try again, or email us directly at <a href="mailto:fred@hamiltongeorgecare.com">fred@hamiltongeorgecare.com</a>.</p>
           <p class="form-note">We will only use your details to discuss this opportunity with you.</p>
         </form>
       </div>
@@ -579,14 +698,17 @@
 
   <script>
     (function () {
-      // TODO: Replace with the live endpoint (Formspree form URL or Google
-      // Apps Script web app URL). Must accept a POST. Keep in sync with the
-      // form's action attribute above.
-      var ENDPOINT = "https://example.com/TODO-endpoint";
+      // Submissions are delivered to fred@hamiltongeorgecare.com through Formspree.
+      // TODO: Replace YOUR_FORM_ID with the Formspree form ID (from a form whose
+      // notification recipient is set to fred@hamiltongeorgecare.com). Must match
+      // the form's action attribute above.
+      var FORMSPREE_FORM_ID = "YOUR_FORM_ID";
+      var ENDPOINT = "https://formspree.io/f/" + FORMSPREE_FORM_ID;
 
       var form = document.getElementById("interestForm");
       var formCard = document.getElementById("formCard");
       var thanks = document.getElementById("thanks");
+      var submitError = document.getElementById("submitError");
       var submitBtn = form.querySelector('button[type="submit"]');
 
       var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -651,12 +773,13 @@
         var data = {};
         new FormData(form).forEach(function (v, k) { data[k] = v; });
 
+        submitError.classList.remove("visible");
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending...";
 
-        // TODO: Confirm the endpoint expects JSON. Formspree accepts JSON when
-        // the Accept header is application/json. A Google Apps Script endpoint
-        // may prefer form-encoded data instead, so adjust body/headers to match.
+        // Formspree accepts JSON when the Accept header is application/json and
+        // returns a JSON body. It emails the submission to the recipient
+        // configured on the form (fred@hamiltongeorgecare.com).
         fetch(ENDPOINT, {
           method: "POST",
           headers: {
@@ -670,10 +793,10 @@
             showThanks();
           })
           .catch(function () {
-            // Placeholder endpoint will fail until wired up. Surface a gentle
-            // recovery path rather than a hard error for the market test.
-            // TODO: Remove this fallback once a real endpoint is connected.
-            showThanks();
+            // Surface a recovery path with a direct email fallback.
+            submitError.classList.add("visible");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Register interest";
           });
       });
 
