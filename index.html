@@ -162,11 +162,13 @@
     .btn-green {
       background: var(--green);
       color: var(--cream);
-      width: 100%;
       border: none;
       font-size: 17px;
     }
-    .btn-green:hover { background: var(--green-deep); }
+    .btn-green:hover { background: var(--green-deep); transform: translateY(-1px); }
+
+    /* Spacing wrapper for a section's call to action. */
+    .cta-row { margin-top: 40px; }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -323,109 +325,25 @@
       font-weight: 500;
     }
 
-    /* ---------- Form ---------- */
-    .register { background: var(--cream); }
+    /* ---------- Register / contact ---------- */
+    .register { background: var(--cream); text-align: center; }
     .register .wrap { max-width: 680px; }
     .register h2 {
       font-size: clamp(26px, 4vw, 38px);
       color: var(--green);
-      text-align: center;
     }
     .register .intro {
-      text-align: center;
       color: #40514a;
-      max-width: 46ch;
-      margin: 0 auto 40px;
+      max-width: 52ch;
+      margin: 0 auto;
     }
-    .form-card {
-      background: #fff;
-      border-radius: 6px;
-      padding: 40px 36px;
-      box-shadow: 0 18px 50px rgba(0,66,37,0.08);
-    }
-    .field { margin-bottom: 22px; }
-    .field label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      color: var(--green);
-      margin-bottom: 8px;
-    }
-    .field label .opt { color: #8a978f; font-weight: 400; letter-spacing: 0; }
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      font-family: var(--sans);
-      font-size: 16px;
-      color: var(--ink);
-      padding: 13px 14px;
-      border: 1px solid rgba(0,66,37,0.22);
-      border-radius: 3px;
-      background: #fff;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-    .field textarea { resize: vertical; min-height: 96px; }
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(0,66,37,0.10);
-    }
-    .field input.invalid,
-    .field select.invalid {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(196,106,106,0.12);
-    }
-    .error-msg {
-      display: none;
-      color: var(--red);
-      font-size: 13px;
-      margin-top: 6px;
-    }
-    .field.has-error .error-msg { display: block; }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0 20px;
-    }
+    .register .cta-row { margin-top: 34px; margin-bottom: 22px; }
     .form-note {
-      font-size: 13px;
-      color: #7c8a82;
-      text-align: center;
-      margin: 18px 0 0;
-    }
-    .submit-error {
-      display: none;
-      text-align: center;
       font-size: 14px;
-      color: var(--red);
-      margin: 16px 0 0;
+      color: #6b7a72;
+      margin: 0;
     }
-    .submit-error a { color: var(--red); }
-    .submit-error.visible { display: block; }
-
-    /* Thank-you state */
-    .thanks {
-      display: none;
-      text-align: center;
-      padding: 24px 8px;
-    }
-    .thanks.visible { display: block; }
-    .form-card.hidden { display: none; }
-    .thanks .mark {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: var(--green);
-      color: var(--cream);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 30px;
-    }
-    .thanks h3 { font-size: 28px; color: var(--green); }
-    .thanks p { color: #40514a; max-width: 40ch; margin: 0 auto 0.6em; }
+    .form-note a { color: var(--green); }
 
     /* ---------- Footer ---------- */
     .footer {
@@ -450,7 +368,6 @@
     /* ---------- Responsive ---------- */
     @media (min-width: 720px) {
       .cards { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-      .grid-2 { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 1000px) {
       .cards { grid-template-columns: repeat(4, 1fr); }
@@ -479,7 +396,7 @@
     <div class="wrap">
       <h1>Bring Britain's premium standard of home care to Florida.</h1>
       <p class="sub">Hamilton George Care is exploring franchise partnerships in Florida. We are looking for exceptional operators who share our standards.</p>
-      <a href="#register" class="btn btn-cream">Register your interest</a>
+      <a href="mailto:fred@hamiltongeorgecare.com?subject=Florida%20franchise%20interest" class="btn btn-cream contact-btn">Register your interest</a>
     </div>
   </section>
 
@@ -520,6 +437,9 @@
           <p>Full support to establish and operate, from onboarding and training through to ongoing operational guidance.</p>
         </div>
       </div>
+      <div class="cta-row">
+        <a href="mailto:fred@hamiltongeorgecare.com?subject=Florida%20franchise%20interest" class="btn btn-green contact-btn">Get in touch</a>
+      </div>
     </div>
   </section>
 
@@ -533,7 +453,7 @@
           <div class="marker">01</div>
           <div class="body">
             <h3>Register your interest</h3>
-            <p>Share a few details using the form below and tell us a little about yourself and where in Florida you are based.</p>
+            <p>Send us a short message using any of the buttons on this page, and tell us a little about yourself and where in Florida you are based.</p>
           </div>
         </div>
         <div class="step">
@@ -572,6 +492,9 @@
           </div>
         </div>
       </div>
+      <div class="cta-row">
+        <a href="mailto:fred@hamiltongeorgecare.com?subject=Florida%20franchise%20interest" class="btn btn-green contact-btn">Get in touch</a>
+      </div>
     </div>
   </section>
 
@@ -588,6 +511,9 @@
         <span>Experienced business owners</span>
         <span>Corporate leaders</span>
       </div>
+      <div class="cta-row">
+        <a href="mailto:fred@hamiltongeorgecare.com?subject=Florida%20franchise%20interest" class="btn btn-cream contact-btn">Get in touch</a>
+      </div>
     </div>
   </section>
 
@@ -595,86 +521,11 @@
   <section class="section register" id="register">
     <div class="wrap">
       <h2>Register your interest</h2>
-      <p class="intro">Tell us a little about yourself. This is an early conversation, with no obligation on either side.</p>
-
-      <div class="form-card" id="formCard">
-        <!-- Submissions are recorded in a Google Sheet via a Google Apps Script
-             web app. The action is a fallback for no-JS browsers; the script
-             below intercepts submit and posts via fetch. TODO: Replace the
-             deployment URL here and in the ENDPOINT constant in the script.
-             See apps-script.gs and GOOGLE_SHEET_SETUP.md in this repo. -->
-        <form id="interestForm" action="https://script.google.com/macros/s/AKfycbwfKJvVR2c769MJCep_1vAgcMDtemiiA5RkeLAHdAfdh7P8DDdMAThfgO6L1-vamNwnmA/exec" method="POST" novalidate>
-
-          <div class="field">
-            <label for="fullName">Full name</label>
-            <input type="text" id="fullName" name="fullName" autocomplete="name" required />
-            <span class="error-msg">Please enter your full name.</span>
-          </div>
-
-          <div class="grid-2">
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" autocomplete="email" required />
-              <span class="error-msg">Please enter a valid email address.</span>
-            </div>
-            <div class="field">
-              <label for="phone">Phone <span class="opt">(optional)</span></label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel" />
-              <span class="error-msg">Please enter a valid phone number.</span>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="region">City or region in Florida</label>
-            <input type="text" id="region" name="region" autocomplete="address-level2" required />
-            <span class="error-msg">Please tell us where in Florida you are based.</span>
-          </div>
-
-          <div class="grid-2">
-            <div class="field">
-              <label for="background">Professional background</label>
-              <select id="background" name="background" required>
-                <option value="" disabled selected>Please select</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="military">Military</option>
-                <option value="business-owner">Business owner</option>
-                <option value="corporate-leadership">Corporate leadership</option>
-                <option value="other">Other</option>
-              </select>
-              <span class="error-msg">Please select your background.</span>
-            </div>
-            <div class="field">
-              <label for="capital">Indicative capital available</label>
-              <select id="capital" name="capital" required>
-                <option value="" disabled selected>Please select</option>
-                <option value="under-100k">Under $100k</option>
-                <option value="100k-250k">$100k to $250k</option>
-                <option value="250k-500k">$250k to $500k</option>
-                <option value="over-500k">Over $500k</option>
-                <option value="prefer-not-to-say">Prefer not to say</option>
-              </select>
-              <span class="error-msg">Please choose an option.</span>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="reason">Tell us briefly why this interests you <span class="opt">(optional)</span></label>
-            <textarea id="reason" name="reason" rows="3"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-green">Register interest</button>
-          <p class="submit-error" id="submitError" role="alert">Something went wrong. Please try again, or email us directly at <a href="mailto:fred@hamiltongeorgecare.com">fred@hamiltongeorgecare.com</a>.</p>
-          <p class="form-note">We will only use your details to discuss this opportunity with you.</p>
-        </form>
+      <p class="intro">Get in touch and tell us a little about yourself. This is an early conversation, with no obligation on either side. When you write, it helps to include your name, where in Florida you are based, and a note on your background.</p>
+      <div class="cta-row">
+        <a href="mailto:fred@hamiltongeorgecare.com?subject=Florida%20franchise%20interest" class="btn btn-green contact-btn">Get in touch</a>
       </div>
-
-      <!-- Thank-you state -->
-      <div class="thanks" id="thanks" role="status" aria-live="polite">
-        <div class="mark" aria-hidden="true">&#10003;</div>
-        <h3>Thank you</h3>
-        <p>Your interest has been registered. A member of our team will be in touch to arrange an early, no obligation conversation.</p>
-        <p>With warm regards, the Hamilton George Care team.</p>
-      </div>
+      <p class="form-note">Prefer to write directly? Email us at <a href="mailto:fred@hamiltongeorgecare.com">fred@hamiltongeorgecare.com</a>.</p>
     </div>
   </section>
 
@@ -694,115 +545,37 @@
 
   <script>
     (function () {
-      // Submissions are delivered to fred@hamiltongeorgecare.com through Formspree.
-      // TODO: Replace YOUR_FORM_ID with the Formspree form ID (from a form whose
-      // notification recipient is set to fred@hamiltongeorgecare.com). Must match
-      // the form's action attribute above.
+      // Progressive enhancement for the "Get in touch" buttons.
       //
-      // Submissions are recorded in a Google Sheet via a Google Apps Script
-      // web app. TODO: Paste the web app deployment URL here (it ends in
-      // "/exec"). See apps-script.gs and GOOGLE_SHEET_SETUP.md in this repo.
-      var ENDPOINT = "https://script.google.com/macros/s/AKfycbwfKJvVR2c769MJCep_1vAgcMDtemiiA5RkeLAHdAfdh7P8DDdMAThfgO6L1-vamNwnmA/exec";
+      // Every contact button already has a plain mailto link that works with
+      // no JavaScript. Here we upgrade those links to also pre-fill a short
+      // email body, prompting the sender to include the details we would like
+      // (name, region, background). This keeps the emails useful without a
+      // form or any backend. To change the destination or the prompt, edit the
+      // values below.
+      var EMAIL = "fred@hamiltongeorgecare.com";
+      var SUBJECT = "Florida franchise interest";
+      var BODY = [
+        "Hello Hamilton George Care team,",
+        "",
+        "I would like to register my interest in a Florida franchise partnership. A little about me:",
+        "",
+        "Full name: ",
+        "City or region in Florida: ",
+        "Professional background: ",
+        "Best contact number: ",
+        "",
+        "Why this interests me:",
+        ""
+      ].join("\r\n");
 
-      var form = document.getElementById("interestForm");
-      var formCard = document.getElementById("formCard");
-      var thanks = document.getElementById("thanks");
-      var submitError = document.getElementById("submitError");
-      var submitBtn = form.querySelector('button[type="submit"]');
+      var href = "mailto:" + EMAIL +
+        "?subject=" + encodeURIComponent(SUBJECT) +
+        "&body=" + encodeURIComponent(BODY);
 
-      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      var phoneRe = /^[\d\s()+\-.]{7,}$/;
-
-      function fieldOf(el) { return el.closest(".field"); }
-
-      function setError(el, hasError) {
-        var field = fieldOf(el);
-        if (!field) return;
-        field.classList.toggle("has-error", hasError);
-        el.classList.toggle("invalid", hasError);
-      }
-
-      function validateField(el) {
-        var value = (el.value || "").trim();
-
-        // Optional phone: only validate if something was entered.
-        if (el.id === "phone") {
-          var ok = value === "" || phoneRe.test(value);
-          setError(el, !ok);
-          return ok;
-        }
-
-        if (!el.hasAttribute("required")) return true;
-
-        var valid = value !== "";
-        if (el.id === "email") valid = emailRe.test(value);
-        setError(el, !valid);
-        return valid;
-      }
-
-      // Clear the error state as the user corrects a field.
-      form.addEventListener("input", function (e) {
-        if (e.target.classList && e.target.classList.contains("invalid")) {
-          validateField(e.target);
-        }
-      });
-      form.addEventListener("change", function (e) {
-        if (e.target.tagName === "SELECT") validateField(e.target);
-      });
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        var toCheck = form.querySelectorAll("input, select");
-        var firstInvalid = null;
-        var allValid = true;
-
-        toCheck.forEach(function (el) {
-          if (el.type === "submit" || el.type === "button") return;
-          var ok = validateField(el);
-          if (!ok && !firstInvalid) firstInvalid = el;
-          if (!ok) allValid = false;
-        });
-
-        if (!allValid) {
-          if (firstInvalid) firstInvalid.focus();
-          return;
-        }
-
-        var data = {};
-        new FormData(form).forEach(function (v, k) { data[k] = v; });
-
-        submitError.classList.remove("visible");
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-
-        // Google Apps Script web apps do not return CORS headers, so we send a
-        // "simple" request (text/plain body, no custom headers) with mode
-        // "no-cors". The row is still written to the sheet, but the browser
-        // receives an opaque response we cannot inspect. We therefore treat a
-        // resolved fetch as success and only show the error state if the
-        // network request itself fails. The Apps Script parses the JSON body.
-        fetch(ENDPOINT, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(data)
-        })
-          .then(function () {
-            showThanks();
-          })
-          .catch(function () {
-            // Surface a recovery path with a direct email fallback.
-            submitError.classList.add("visible");
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Register interest";
-          });
-      });
-
-      function showThanks() {
-        formCard.classList.add("hidden");
-        thanks.classList.add("visible");
-        thanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      var links = document.querySelectorAll("a.contact-btn");
+      for (var i = 0; i < links.length; i++) {
+        links[i].setAttribute("href", href);
       }
     })();
   </script>
