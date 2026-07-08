@@ -598,16 +598,12 @@
       <p class="intro">Tell us a little about yourself. This is an early conversation, with no obligation on either side.</p>
 
       <div class="form-card" id="formCard">
-        <!-- Submissions are delivered to fred@hamiltongeorgecare.com via Formspree.
-             TODO: Create a form at https://formspree.io, set its notification
-             recipient to fred@hamiltongeorgecare.com, then paste the form ID into
-             BOTH the action below and the FORMSPREE_FORM_ID constant in the script
-             (replace YOUR_FORM_ID). The JS intercepts submit and posts via fetch. -->
-        <form id="interestForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-
-          <!-- Formspree: sets the notification email subject. The registrant's
-               own email (the "email" field below) is used as the reply-to. -->
-          <input type="hidden" name="_subject" value="New Florida franchise interest" />
+        <!-- Submissions are recorded in a Google Sheet via a Google Apps Script
+             web app. The action is a fallback for no-JS browsers; the script
+             below intercepts submit and posts via fetch. TODO: Replace the
+             deployment URL here and in the ENDPOINT constant in the script.
+             See apps-script.gs and GOOGLE_SHEET_SETUP.md in this repo. -->
+        <form id="interestForm" action="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec" method="POST" novalidate>
 
           <div class="field">
             <label for="fullName">Full name</label>
@@ -702,8 +698,11 @@
       // TODO: Replace YOUR_FORM_ID with the Formspree form ID (from a form whose
       // notification recipient is set to fred@hamiltongeorgecare.com). Must match
       // the form's action attribute above.
-      var FORMSPREE_FORM_ID = "YOUR_FORM_ID";
-      var ENDPOINT = "https://formspree.io/f/" + FORMSPREE_FORM_ID;
+      //
+      // Submissions are recorded in a Google Sheet via a Google Apps Script
+      // web app. TODO: Paste the web app deployment URL here (it ends in
+      // "/exec"). See apps-script.gs and GOOGLE_SHEET_SETUP.md in this repo.
+      var ENDPOINT = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
 
       var form = document.getElementById("interestForm");
       var formCard = document.getElementById("formCard");
@@ -777,19 +776,19 @@
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending...";
 
-        // Formspree accepts JSON when the Accept header is application/json and
-        // returns a JSON body. It emails the submission to the recipient
-        // configured on the form (fred@hamiltongeorgecare.com).
+        // Google Apps Script web apps do not return CORS headers, so we send a
+        // "simple" request (text/plain body, no custom headers) with mode
+        // "no-cors". The row is still written to the sheet, but the browser
+        // receives an opaque response we cannot inspect. We therefore treat a
+        // resolved fetch as success and only show the error state if the
+        // network request itself fails. The Apps Script parses the JSON body.
         fetch(ENDPOINT, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(data)
         })
-          .then(function (res) {
-            if (!res.ok) throw new Error("Request failed");
+          .then(function () {
             showThanks();
           })
           .catch(function () {
